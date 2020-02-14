@@ -1,31 +1,43 @@
 import React, { useContext } from 'react';
 import  { CarContext } from '../context/CarContext';
-import '../assets/styles/Shared.css'
 
-const ListCars = () => {
+import { Title, Details, Container, List } from "../assets/styles/styles";
 
-	const { allCars } = useContext(CarContext);
+
+const ListCars = (props) => {
+
+  const { allCars } = useContext(CarContext);
+  
+  const editClickHandler = async (carRecord) => {
+    props.selectCar(carRecord)
+    props.history.push('/editcar')
+		return(carRecord)
+	}
 
 	return (
-
-	<div className='section section-cars'>
-      <div className='container'>
-        <ul>
+	 <List>
 		      {allCars.map(car => (
-            <li key={car.id}>
-              <div 
-                onClick={() => alert(car.model)}
-                className='card car'>
-                <div className='car-details'>
-                  <div className='car-title'>{car.title}</div>
-                  <div className='car-model'>{car.model}</div>
-                </div>
-              </div>
-            </li>
+                 <li key={car.id}
+                  onClick={() => editClickHandler(car)}
+                  className='card car'>
+                    <Title>
+                      {car.title} 
+                      <span>
+                        {car.price}
+                          <dt> { car.year }</dt>
+                        </span>
+                      <dt>
+                        { car.model } • 
+                        { car.brand } • 
+                        { car.color } • 
+                        { car.km } KM
+                      </dt>
+                    </Title> 
+                </li>
           ))}
-        </ul>
-      </div>
-    </div>
+  </List>
+
+
 	);
 };
 

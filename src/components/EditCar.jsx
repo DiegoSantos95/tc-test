@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import api from "../api/api";
 import CarForm from './CarForm';
-import api from '../api/api';
 
-export default props => {
-    const [newCar, setNewCar] = useState({});
+export default props =>  {
+    const [EditCar, setEditCar] = useState({});
+    const carRecord = props.carRecord;
 
-    const addNewCar = car => {
+
+    const UpdateCar = car => {
         console.log(car)
 
         let record = {
@@ -17,25 +19,25 @@ export default props => {
           km: car.km,
           price: car.price
         };
-        setNewCar(record);
+        setEditCar(record);
       };
 
       const sendData = async () => {
-        const postData = await api.post('/cars', newCar);
-        console.log(postData);
+        const putData = await api.put(`/cars/${carRecord.id}`, EditCar);
+        console.log(putData);
         props.history.push('/listcars');
       };
 
     useEffect(() => {
-        if (newCar.title) {
+        if (EditCar.title) {
         sendData();
         }
-    }, [newCar]);
+    }, [EditCar]);
 
     return (
         <>
 
-        <CarForm call={addNewCar} props={props}/>
+        <CarForm call={UpdateCar} record={carRecord} props={props}/>
 
         </>
     );

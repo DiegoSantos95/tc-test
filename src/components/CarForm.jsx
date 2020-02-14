@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import InputText from './InputText';
 
 
-const CarForm = ({ call, record = {} }) => {
+const CarForm = ({ call, record = {}, props }) => {
     const [car, setCar] = useState(record);
 
   const handleSubmit = e => {
@@ -66,6 +66,11 @@ const CarForm = ({ call, record = {} }) => {
             >
                 <i>Add</i>
             </button>
+          </div>
+          <div>
+              <button type="button"  onClick={() =>  props.history.push('/')}>
+                  <i>Cancelar</i>
+              </button>
           </div>
         </form>
         </>

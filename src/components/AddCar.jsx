@@ -23,7 +23,7 @@ export default props => {
       const sendData = async () => {
         const postData = await api.post('/cars', newCar);
         console.log(postData);
-        props.history.push('/listcars');
+        props.openForm();
       };
 
     useEffect(() => {

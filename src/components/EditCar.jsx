@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import api from "../api/api";
-import CarForm from './CarForm';
+import EditCarForm from "./EditCarForm";
 
 export default props =>  {
     const [EditCar, setEditCar] = useState({});
-    const carRecord = props.carRecord;
+    const carRecord = props.carToEdit;
 
 
     const UpdateCar = car => {
@@ -25,7 +25,7 @@ export default props =>  {
       const sendData = async () => {
         const putData = await api.put(`/cars/${carRecord.id}`, EditCar);
         console.log(putData);
-        props.history.push('/listcars');
+        props.openEditForm();
       };
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export default props =>  {
     return (
         <>
 
-        <CarForm call={UpdateCar} record={carRecord} props={props}/>
+        <EditCarForm call={UpdateCar} record={carRecord} props={props}/>
 
         </>
     );
